@@ -16,7 +16,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from '@nestjs/jwt';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { APP_GUARD, APP_PIPE, APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
-import CustomLogger from './logger/custom-logger';
 import { join } from 'path';
 import { AuthModule } from './modules/Auth/index.module';
 import { UserModule } from './modules/User/index.module';
@@ -57,12 +56,7 @@ import { UserModule } from './modules/User/index.module';
     UserModule,
   ],
   providers: [
-    {
-      // 日志服务
-      provide: Logger,
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => CustomLogger(configService),
-    },
+    Logger,
     {
       // 认证守卫
       provide: APP_GUARD,
